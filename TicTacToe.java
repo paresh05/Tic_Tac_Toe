@@ -28,11 +28,23 @@ public class TicTacToe {
 		Scanner sc = new Scanner(System.in);
 		char letter=sc.next().charAt(0);
 	}
-
+	//This function displays the board 
+	public static void showBoard()
+	{
+		System.out.println("|---|---|---|");
+		System.out.println("| " + board[1] + " | "+ board[2] + " | " + board[3]+ " |");
+		System.out.println("|-----------|");
+		System.out.println("| " + board[4] + " | "+ board[5] + " | " + board[6]+ " |");
+		System.out.println("|-----------|");
+		System.out.println("| " + board[7] + " | "+ board[8] + " | " + board[9]+ " |");
+		System.out.println("|---|---|---|");
+	}
 	public static void main(String[] args) {
 			//Function call
 			createBoard();
+			showBoard();
 			userInput();
+			
 	}
 
 }
