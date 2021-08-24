@@ -71,9 +71,78 @@ public class TicTacToe {
 	public static void computerMakeMove()
 	{
 		int madeaMove=0;
-		int index1=0;
+		int index=0,index1=0;
 		while(madeaMove==0) {
-			index1 = ((int) Math.floor(Math.random()*10) % 9)+1;
+			index = ((int) Math.floor(Math.random()*10) % 9)+1;
+			
+			for(int i=1;i<board.length;i++)
+			{
+				if(((i%3)!=0)&&(board[i]==board[i+1])&&(board[i]==computerLetter))
+				{
+					if((i==1||i==4||i==7)&&(board[i+2]==' ')) {
+						index1=(i+2);
+						break;
+					}
+					else if((i==2||i==5||i==8)&&board[i-1]==' ')
+					{
+						index1=(i-1);
+						break;
+					}
+				}
+				else if(((i+3)<board.length)&&(board[i]==board[i+3])&&(board[i]==computerLetter))
+				{
+					if((i==1||i==2||i==3)&&(board[i+6]==' ')) {
+						index1=i+6;
+						break;
+					}
+					else if((i==4||i==5||i==6)&&(board[i-3]==' ')) {
+						index1=i-3;
+						break;
+					}
+				}
+				else if((board[1]==board[5])&&(board[9]==' ')&&(board[1]==computerLetter))
+				{
+					index1=9;
+					break;
+				}
+				else if((board[3]==board[5])&&(board[7]==' ')&&(board[3]==computerLetter))
+				{
+					index1=7;
+					break;
+				}
+				else if((board[9]==board[5])&&(board[1]==' ')&&(board[5]==computerLetter))
+				{
+					index1=1;
+					break;
+				}
+				else if((board[7]==board[5])&&(board[3]==' ')&&(board[5]==computerLetter))
+				{
+					index1=3;
+					break;
+				}
+				else if(((i+6)<board.length)&&(board[i]==board[i+6])&& board[i+3]==' '&&(board[i]==computerLetter))
+				{
+					index1=i+3;
+					break;
+				}
+				else if(((i+2)<board.length)&&(board[i]==board[i+2])&& board[i+1]==' '&&(board[i]==computerLetter))
+				{
+					index1=i+1;
+					break;
+				}
+				else if((board[3]==board[7])&&(board[5]==' ')&&(board[3]==computerLetter))
+				{
+					index1=5;
+					break;
+				}
+				else if((board[1]==board[9])&&(board[5]==' ')&&(board[3]==computerLetter))
+				{
+					index1=5;
+					break;
+				}
+				
+			}
+			if(index1==0) {
 			
 				for(int i=1;i<9;i++)
 				{
@@ -141,12 +210,22 @@ public class TicTacToe {
 						break;
 					}
 				}
-			
+			}
 
+			if(index1==0)
+			{
+				if(board[index]==' ') {
+					board[index]=computerLetter;
+					madeaMove=1;
+				}
+			}
+			else {
 				if(board[index1]==' ') {
 					board[index1]=computerLetter;
 					madeaMove=1;
-				}
+			}
+
+		}
 		}
 	}
 	/* Function toss
