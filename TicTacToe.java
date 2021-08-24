@@ -41,17 +41,30 @@ public class TicTacToe {
 	 * This function allows the user to make a move to a desired location in the board by taking input from the user*/
 	public static void makeMove()
 	{
+		int madeaMove=0;
 		System.out.println("Make a move");
 		System.out.println("Select any index between 1 to 9 to make a move");
 		Scanner sc = new Scanner(System.in);
-		int position=sc.nextInt();
-		if(board[position]==' ')
-			board[position]=letter;
+		while(madeaMove==0) {
+			int position=sc.nextInt();
+			if(board[position]==' ') {
+				board[position]=letter;
+				madeaMove=1;
+			}
+			else {
+				System.out.println("Not a freespace. Make a different move");
+			}
+		}
+		
 	}
 	public static void main(String[] args) {
 			//Function call
 			createBoard();
 			userInput();
+			showBoard();
+			makeMove();
+			showBoard();
+			makeMove();
 			showBoard();
 			makeMove();
 			showBoard();
