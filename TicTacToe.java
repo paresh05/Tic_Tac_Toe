@@ -3,20 +3,21 @@ package com.bridgelabzworkshop;
 import java.util.Scanner;
 
 public class TicTacToe {
+
+	public static char board[]=new char[10];  //@param board[] is an array of characters used as a board to play the game 
+	public static char userLetter;  //@param userLetter is of type character used for user in the game
+	public static char computerLetter;  //@param computerLetter is of type character used for computer in the game
+	public static int userToss;  //@param userToss is used for users preference for toss in the game
+	public static int randomToss;  //@param randomToss is used for toss to check who plays first in the game
 	
-	public static char board[]=new char[10]; //@param board[] is an array of characters used as a board to play the game
-	public static char userLetter; //@param userLetter is of type character used for user in the game
-	public static char computerLetter; //@param computerLetter is of type character used for computer in the game
-	public static int userToss; //@param userToss is used for users preference for toss in the game
-	public static int randomToss; //@param randomToss is used for toss to check who plays first in the game
 	/* Function of createBoard 
 	 * This function creates a board using for loop
 	 * The elements of array board are initialized to empty space */
 	public static void createBoard()
 	{
-		for(int i=1;i<board.length;i++)
+		for(int index=1;index<board.length;index++)
 		{
-				board[i]=' ';
+				board[index]=' ';
 		}
 	}
 	/* Function of user input
@@ -27,11 +28,13 @@ public class TicTacToe {
 		System.out.println("Choose the letter X or O");
 		Scanner sc = new Scanner(System.in);
 		userLetter=sc.next().charAt(0);
+		
 		if(userLetter=='O')
 			computerLetter='X';
 		else
 			computerLetter='O';
 	}
+	
 	//This function displays the board 
 	public static void showBoard()
 	{
@@ -43,6 +46,7 @@ public class TicTacToe {
 		System.out.println("| " + board[7] + " | "+ board[8] + " | " + board[9]+ " |");
 		System.out.println("|---|---|---|");
 	}
+	
 	/* Function makeMove
 	 * This function allows the user to make a move to a desired location in the board by taking input from the user*/
 	public static void makeMove()
@@ -67,12 +71,82 @@ public class TicTacToe {
 	public static void computerMakeMove()
 	{
 		int madeaMove=0;
+		int index1=0;
 		while(madeaMove==0) {
-			int index = ((int) Math.floor(Math.random()*10) % 9)+1;
-			if(board[index]==' ') {
-				board[index]=computerLetter;
-				madeaMove=1;
-			}
+			index1 = ((int) Math.floor(Math.random()*10) % 9)+1;
+			
+				for(int i=1;i<9;i++)
+				{
+					if(((i%3)!=0)&&(board[i]==board[i+1])&&(board[i]==userLetter))
+					{
+						if((i==1||i==4||i==7)&&(board[i+2]==' ')) {
+							index1=(i+2);
+							break;
+						}
+						else if((i==2||i==5||i==8)&&board[i-1]==' ')
+						{
+							index1=(i-1);
+							break;
+						}
+					}
+					else if(((i+3)<board.length)&&(board[i]==board[i+3])&&(board[i]==userLetter))
+					{
+						if((i==1||i==2||i==3)&&(board[i+6]==' ')) {
+							index1=i+6;
+							break;
+						}
+						else if((i==4||i==5||i==6)&&(board[i-3]==' ')) {
+							index1=i-3;
+							break;
+						}
+					}
+					else if((board[1]==board[5])&&(board[9]==' ')&&(board[1]==userLetter))
+					{
+						index1=9;
+						break;
+					}
+					else if((board[3]==board[5])&&(board[7]==' ')&&(board[3]==userLetter))
+					{
+						index1=7;
+						break;
+					}
+					else if((board[9]==board[5])&&(board[1]==' ')&&(board[5]==userLetter))
+					{
+						index1=1;
+						break;
+					}
+					else if((board[7]==board[5])&&(board[3]==' ')&&(board[5]==userLetter))
+					{
+						index1=3;
+						break;
+					}
+					else if(((i+6)<board.length)&&(board[i]==board[i+6])&& board[i+3]==' '&&(board[i]==userLetter))
+					{
+						index1=i+3;
+						break;
+					}
+					else if(((i+2)<board.length)&&(board[i]==board[i+2])&& board[i+1]==' '&&(board[i]==userLetter))
+					{
+						index1=i+1;
+						break;
+					}
+					else if((board[1]==board[9])&&(board[5]==' ')&&(board[3]==userLetter))
+					{
+						index1=5;
+						break;
+					}
+					else if((board[3]==board[7])&&(board[5]==' ')&&(board[3]==userLetter))
+					{
+						index1=5;
+						break;
+					}
+				}
+			
+
+				if(board[index1]==' ') {
+					board[index1]=computerLetter;
+					madeaMove=1;
+				}
 		}
 	}
 	/* Function toss
@@ -143,7 +217,7 @@ public class TicTacToe {
 			}
 		}
 	}
-		// This function checks the winner 
+	// This function checks the winner 
 	public static int checkWinner()
 	{
 		char letter=' ';
@@ -161,10 +235,12 @@ public class TicTacToe {
 		else if((board[1] == board[4])&&(board[7]==board[1])&&(board[1]!=' ')&&(board[4]!=' ')&&(board[7]!=' ')) {
 			
 				letter=board[1];	
-		}			
+		}
+			
 		else if((board[2] == board[5])&&(board[8]==board[2])&&(board[2]!=' ')&&(board[5]!=' ')&&(board[8]!=' ')) {
 				letter=board[2];
-		}			
+		}
+			
 		else if((board[3] == board[6])&&(board[9]==board[3])&&(board[3]!=' ')&&(board[6]!=' ')&&(board[9]!=' ')) {
 				letter=board[3];	
 		}	
@@ -204,7 +280,7 @@ public class TicTacToe {
 		else return 0;
 	}
 	public static void main(String[] args) {
-			
+		
 			System.out.println("Welcome to the Tic Tac Toe Game");
 			
 			createBoard(); //Function call to createBoard function
@@ -213,4 +289,4 @@ public class TicTacToe {
 			toss();        //Function call to toss function
 			play();	       //Function call to play function
 	}
-	}
+}
