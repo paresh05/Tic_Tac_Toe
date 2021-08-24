@@ -7,12 +7,13 @@ public class TicTacToe {
 	public static char board[]=new char[10]; //@param board[] is an array of characters used as a board to play the game
 	public static char userLetter; //@param userLetter is of type character used for user in the game
 	public static char computerLetter; //@param computerLetter is of type character used for computer in the game
+	public static int userToss; //@param userToss is used for users preference for toss in the game
+	public static int randomToss; //@param randomToss is used for toss to check who plays first in the game
 	/* Function of createBoard 
 	 * This function creates a board using for loop
 	 * The elements of array board are initialized to empty space */
 	public static void createBoard()
 	{
-		System.out.println("Welcome to the Tic Tac Toe Game");
 		for(int i=1;i<board.length;i++)
 		{
 				board[i]=' ';
@@ -65,19 +66,24 @@ public class TicTacToe {
 	 * This function allows the computer make move */
 	public static void computerMakeMove()
 	{
-		int index = ((int) Math.floor(Math.random()*10) % 9)+1;
-		board[index]=computerLetter;
+		int madeaMove=0;
+		while(madeaMove==0) {
+			int index = ((int) Math.floor(Math.random()*10) % 9)+1;
+			if(board[index]==' ') {
+				board[index]=computerLetter;
+				madeaMove=1;
+			}
+		}
 	}
 	/* Function toss
 	 * This function is used to determine Heads or Tails and assign accordingly who starts first, the computer or the user*/
 	public static void toss()
 	{
-		int userToss;
 		System.out.println("Enter 1 or 0 to check who plays first");
 		Scanner sc = new Scanner(System.in);
 		userToss=sc.nextInt();
 
-		int randomToss = (int) Math.floor(Math.random()*10) % 2;
+		randomToss = (int) Math.floor(Math.random()*10) % 2;
 		
 		if(userToss==randomToss) {
 			System.out.println("You Play First");
@@ -88,14 +94,123 @@ public class TicTacToe {
 			computerMakeMove();
 		}
 		showBoard();
+		System.out.println();
+	}
+	/* Function play
+	 * This function executes until anyone wins or the board is full */
+	public static void play()
+	{
+		int winner=0;
+		int isFull=0;
+		if(userToss==randomToss) {
+			for(int index=2;index<10;index++) {
+				computerMakeMove();
+				winner=checkWinner();
+				showBoard();
+				System.out.println();
+				if(winner==0)
+					isFull=isBoardFull();
+				if(winner==1||isFull==1)
+					break;
+				makeMove();
+				winner=checkWinner();
+				showBoard();
+				System.out.println();
+				if(winner==0)
+					isFull=isBoardFull();
+				if(winner==1||isFull==1)
+					break;	
+			}
+		}
+		else {
+			for(int index=2;index<10;index++) {
+				makeMove();
+				winner=checkWinner();
+				showBoard();
+				System.out.println();
+				if(winner==0)
+					isFull=isBoardFull();
+				if(winner==1||isFull==1)
+					break;
+				computerMakeMove();
+				winner=checkWinner();
+				showBoard();
+				System.out.println();
+				if(winner==0)
+					isFull=isBoardFull();
+				if(winner==1||isFull==1)
+					break;
+			}
+		}
+	}
+		// This function checks the winner 
+	public static int checkWinner()
+	{
+		char letter=' ';
+		if((board[1]==board[2])&&(board[3]==board[1])&&(board[1]!=' ')&&(board[2]!=' ')&&(board[3]!=' ')) {
+			 {
+				letter=board[1];	
+			}
+		}
+		else if((board[4] == board[5])&&(board[6]==board[4])&&(board[4]!=' ')&&(board[5]!=' ')&&(board[6]!=' ')) {
+				letter=board[4];	
+		}	
+		else if((board[7] == board[8])&&(board[9]==board[7])&&(board[7]!=' ')&&(board[8]!=' ')&&(board[9]!=' ')) {
+				letter=board[7];	
+		}	
+		else if((board[1] == board[4])&&(board[7]==board[1])&&(board[1]!=' ')&&(board[4]!=' ')&&(board[7]!=' ')) {
+			
+				letter=board[1];	
+		}			
+		else if((board[2] == board[5])&&(board[8]==board[2])&&(board[2]!=' ')&&(board[5]!=' ')&&(board[8]!=' ')) {
+				letter=board[2];
+		}			
+		else if((board[3] == board[6])&&(board[9]==board[3])&&(board[3]!=' ')&&(board[6]!=' ')&&(board[9]!=' ')) {
+				letter=board[3];	
+		}	
+		else if((board[1] == board[5])&&(board[9]==board[1])&&(board[1]!=' ')&&(board[5]!=' ')&&(board[9]!=' ')) {	
+				letter=board[1];	
+		}	
+		else if((board[3] == board[5])&&(board[7]==board[3])&&(board[3]!=' ')&&(board[5]!=' ')&&(board[7]!=' ')) {	
+				letter=board[7];		
+		}
+		if(letter==userLetter)
+		{
+			System.out.println(" You are the winner ");
+			return 1;
+		}
+		else if(letter==computerLetter)
+		{
+			System.out.println("Computer is the winner");
+			return 1;
+		}
+		else {
+			return 0;
+			}	
+	}
+	// This function checks if the board is full or not
+	public static int isBoardFull()
+	{   
+		int isFull=1;
+		for(int index=0;index<board.length;index++) {
+			if(board[index]==' ') {
+				isFull=0;
+			}
+		}
+		if(isFull==1) {
+			System.out.println("Its a Draw");
+			return 1;
+			}
+		else return 0;
 	}
 	public static void main(String[] args) {
-			//Function call
-			createBoard();
-			userInput();
-			showBoard();
-			toss();
 			
+			System.out.println("Welcome to the Tic Tac Toe Game");
+			
+			createBoard(); //Function call to createBoard function
+			userInput();   //Function call to userInput function
+			showBoard();   //Function call to showBoard function
+			toss();        //Function call to toss function
+			play();	       //Function call to play function
 	}
-
-}
+	}
