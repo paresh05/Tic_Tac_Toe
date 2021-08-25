@@ -375,14 +375,32 @@ public class TicTacToe {
 			}
 		else return 0;
 	}
+	//This function is used to check if the player wants to play again or quit
+	public static int quit()
+	{
+		System.out.println("Game Over. Would you like to play the game again");
+		System.out.println("If you want to quit press 1 or if like to play again press 0");
+		Scanner sc = new Scanner(System.in);
+		int playerChoice=sc.nextInt();
+		if(playerChoice==0)
+			System.out.println("Welcome to another game of Tic Tac Toe");
+		else
+			System.out.println("Thank you for playing");
+		return playerChoice;
+		
+	}
+	
 	public static void main(String[] args) {
+		int askPlayer=0;
 		
 			System.out.println("Welcome to the Tic Tac Toe Game");
-			
-			createBoard(); //Function call to createBoard function
-			userInput();   //Function call to userInput function
-			showBoard();   //Function call to showBoard function
-			toss();        //Function call to toss function
-			play();	       //Function call to play function
+			while(askPlayer==0) {
+				createBoard(); //Function call to createBoard function
+				userInput();   //Function call to userInput function
+				showBoard();   //Function call to showBoard function
+				toss();        //Function call to toss function
+				play();	       //Function call to play function
+				askPlayer=quit();
+			}
 	}
 }
