@@ -74,7 +74,7 @@ public class TicTacToe {
 		int index=0,index1=0;
 		while(madeaMove==0) {
 			index = ((int) Math.floor(Math.random()*10) % 9)+1;
-			
+			// code to check if the computer can win then play that move
 			for(int i=1;i<board.length;i++)
 			{
 				if(((i%3)!=0)&&(board[i]==board[i+1])&&(board[i]==computerLetter))
@@ -142,9 +142,10 @@ public class TicTacToe {
 				}
 				
 			}
+			//code to check if opponent can win then play to block it
 			if(index1==0) {
 			
-				for(int i=1;i<9;i++)
+				for(int i=1;i<board.length;i++)
 				{
 					if(((i%3)!=0)&&(board[i]==board[i+1])&&(board[i]==userLetter))
 					{
@@ -208,6 +209,17 @@ public class TicTacToe {
 					{
 						index1=5;
 						break;
+					}
+				}
+			}
+			//code to take one of the available cornerss
+			if(index1==0)
+			{
+				for(int i=0;i<board.length;i++)
+				{
+					if((i!=5)&&((i%2)!=0)&&(board[i]==' '))
+					{
+						index1=i;
 					}
 				}
 			}
