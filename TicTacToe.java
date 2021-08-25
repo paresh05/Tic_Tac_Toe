@@ -212,7 +212,7 @@ public class TicTacToe {
 					}
 				}
 			}
-			//code to take one of the available cornerss
+			//code to take one of the available corners
 			if(index1==0)
 			{
 				for(int i=0;i<board.length;i++)
@@ -220,8 +220,13 @@ public class TicTacToe {
 					if((i!=5)&&((i%2)!=0)&&(board[i]==' '))
 					{
 						index1=i;
+						break;
 					}
 				}
+			}
+			if(index1==0) {
+				if(board[5]==' ')
+					index1=5;
 			}
 
 			if(index1==0)
