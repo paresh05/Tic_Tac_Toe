@@ -267,7 +267,7 @@ public class TicTacToe {
 		System.out.println();
 	}
 	/* Function play
-	 * This function executes until anyone wins or the board is full */
+	 * this function executes until anyone wins or the board is full */
 	public static void play()
 	{
 		int winner=0;
