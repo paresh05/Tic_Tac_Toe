@@ -215,7 +215,7 @@ public class TicTacToe {
 			//code to take one of the available corners
 			if(index1==0)
 			{
-				for(int i=0;i<board.length;i++)
+				for(int i=1;i<board.length;i++)
 				{
 					if((i!=5)&&((i%2)!=0)&&(board[i]==' '))
 					{
@@ -224,6 +224,7 @@ public class TicTacToe {
 					}
 				}
 			}
+			// code to take center if corners are unavailable
 			if(index1==0) {
 				if(board[5]==' ')
 					index1=5;
@@ -273,7 +274,7 @@ public class TicTacToe {
 		int winner=0;
 		int isFull=0;
 		if(userToss==randomToss) {
-			for(int index=2;index<10;index++) {
+			for(int index=2;index<board.length;index++) {
 				computerMakeMove();
 				winner=checkWinner();
 				showBoard();
@@ -293,7 +294,7 @@ public class TicTacToe {
 			}
 		}
 		else {
-			for(int index=2;index<10;index++) {
+			for(int index=2;index<board.length;index++) {
 				makeMove();
 				winner=checkWinner();
 				showBoard();
@@ -313,14 +314,12 @@ public class TicTacToe {
 			}
 		}
 	}
-	// This function checks the winner 
+	// This function checks the winner using if and else if loop and returns who has won the game
 	public static int checkWinner()
 	{
 		char letter=' ';
 		if((board[1]==board[2])&&(board[3]==board[1])&&(board[1]!=' ')&&(board[2]!=' ')&&(board[3]!=' ')) {
-			 {
 				letter=board[1];	
-			}
 		}
 		else if((board[4] == board[5])&&(board[6]==board[4])&&(board[4]!=' ')&&(board[5]!=' ')&&(board[6]!=' ')) {
 				letter=board[4];	
@@ -361,6 +360,7 @@ public class TicTacToe {
 			}	
 	}
 	// This function checks if the board is full or not
+	 
 	public static int isBoardFull()
 	{   
 		int isFull=1;
@@ -386,21 +386,19 @@ public class TicTacToe {
 			System.out.println("Welcome to another game of Tic Tac Toe");
 		else
 			System.out.println("Thank you for playing");
-		return playerChoice;
-		
+		return playerChoice;	
 	}
 	
 	public static void main(String[] args) {
 		int askPlayer=0;
-		
 			System.out.println("Welcome to the Tic Tac Toe Game");
 			while(askPlayer==0) {
-				createBoard(); //Function call to createBoard function
-				userInput();   //Function call to userInput function
-				showBoard();   //Function call to showBoard function
-				toss();        //Function call to toss function
-				play();	       //Function call to play function
-				askPlayer=quit();
+				createBoard();    //Function call to createBoard function
+				userInput();      //Function call to userInput function
+				showBoard();      //Function call to showBoard function
+				toss();           //Function call to toss function
+				play();	          //Function call to play function
+				askPlayer=quit(); //Function call to quit function
 			}
 	}
 }
